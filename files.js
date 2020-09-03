@@ -71,7 +71,7 @@ const ExtByType = {
   test: UnitTestType,
 };
 
-const IgnoreType = /((build|dist|node_modules)\/|jquery)/;
+const IgnoreType = /((build|dist|node_modules|bower_components)\/|jquery)/;
 
 module.exports.ConfigType = ConfigType;
 module.exports.Ext = Ext;
