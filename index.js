@@ -40,12 +40,17 @@ const getSearchRegexes = () => {
 const parse = async (filePath) => {
   const regexes = getSearchRegexes();
   const contents = await readFileAsync(filePath, 'utf8');
-  const lines = contents.split('\n').filter((str) => (
+  return contents.split('\n').filter((str) => (
     str
     && str.length
     && !str.match(IgnoreType)
+    && regexes.find((regex) => str.match(regex))
   ));
-  return lines.filter((line) => regexes.find((regex) => line.match(regex)));
+};
+
+const writeOutput = (output) => {
+  const outputStr = JSON.stringify(output, null, 2);
+  fs.writeFileSync(`./result_${Date.now()}.txt`, outputStr);
 };
 
 const allArgs = process.argv.slice(2);
@@ -55,9 +60,7 @@ const filePath = allArgs[0];
 process.nextTick(async () => {
   try {
     const files = await parse(filePath);
-    for (let file of files) {
-      console.log(file);
-    }
+    writeOutput(files);
     process.exit(0);
   } catch (err) {
     console.log(err);
