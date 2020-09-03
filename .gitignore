@@ -1,3 +1,6 @@
 node_modules
 .DS_Store
 .idea
+output_files.txt
+output_files.txt.tar.gz
+output_files.txt.tmp
